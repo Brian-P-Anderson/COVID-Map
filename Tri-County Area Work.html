@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Illinois COVID-19 Map</title>
+</head>
+<body>
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0,-3465 3534,7566" width="1400" height="1000">
+  <g stroke="black" fill="#360" stroke-linejoin="round" stroke-width="30">
+    <path id="Peoria" d="M -296,-3334 l 958,6 671,-9 -26,71 16,85 -52,126 -5,81 -21,80 -128,141 -62,86 -41,60 -20,86 -21,75 -36,96 -25,70 -26,56 -46,50 -36,50 -62,76 -82,201 -26,56 -5,20 -144,216 -56,86 -21,45 -10,45 -11,76 -15,131 36,156 5,76 35,116 21,85 5,81 10,55 10,91 -47,111 -30,75 -26,20 -103,66 -128,95 -138,116 -108,141 -16,60 10,66 -5,75 -77,111 -46,70 -62,61 -30,50 -52,70 -61,96 -36,60 -16,61 0,60 26,51 15,55 -16,60 -36,56 -66,85 -123,91 -57,-66 -46,-35 -46,-5 -77,40 -82,25 -82,10 -46,20 -62,20 -123,0 -71,-16 -57,-5 -148,60 -118,36 -144,70 -51,35 -67,50 -215,116 -108,65 17,-740 -41,-6 11,-493 -979,-22 28,-947 22,-972 7,-982 2,-978 988,22 963,12 z" />
+    <path id="Tazewell" d="M 448,-824 l 405,5 953,-8 497,-10 -1,353 24,1133 497,-9 10,236 0,252 19,962 14,972 4,791 -2885,61 -949,19 -8,-1295 -1752,-18 41,-20 61,-45 52,-71 15,-50 16,-65 36,-51 87,-125 10,-41 11,-85 41,-217 21,-35 25,-25 31,-20 108,-65 215,-116 67,-50 51,-35 144,-70 118,-36 148,-60 57,5 71,16 123,0 62,-20 46,-20 82,-10 82,-25 77,-40 46,5 46,35 57,66 123,-91 66,-85 36,-56 16,-60 -15,-55 -26,-51 0,-60 16,-61 36,-60 61,-96 52,-70 30,-50 62,-61 46,-70 77,-111 5,-75 -10,-66 16,-60 108,-141 138,-116 128,-95 103,-66 26,-20 30,-75 47,-111 -10,-91 -10,-55 -5,-81 z" />
+    <path id="Woodford" d="M 5666,-2833 l 5,459 4,524 15,952 -487,4 24,987 -512,10 10,398 -482,25 0,141 -267,9 0,167 -1143,33 -10,-236 -497,9 -24,-1133 1,-353 -497,10 -953,8 -405,-5 -35,-116 -5,-76 -36,-156 15,-131 11,-76 10,-45 21,-45 56,-86 144,-216 5,-20 26,-56 82,-201 62,-76 36,-50 46,-50 26,-56 25,-70 36,-96 21,-75 20,-86 41,-60 62,-86 671,1 441,-4 533,-25 983,-29 226,-4 71,0 384,5 262,0 z" />
+  </g>
+  <g id="textOverlay"></g>
+</svg>
+<script src="./www/counties.js"></script>
+<script>
+var coords = [
+  [-1700, -2200, -800, -2200, 1462110],
+  [500, 1600, -700, -2100, 203574],
+  [2600, -2200, -600, -2100, 59192]
+];
+var elText = document.getElementById('textOverlay');
+
+var bufrText = '';
+for (i = 0; i < 3; i++) {
+  bufrText += `<text x="${coords[i][0]}" y="${coords[i][1]}" style="font: 150px sans-serif; stroke-width: 3; stroke: #ff0; fill: #ff0;">`;
+  bufrText += `<tspan dx="${coords[i][2]}" dy="100">Cases: </tspan><tspan dx="15" dy="0">${data[i][3]}</tspan>`;
+  bufrText += `<tspan dx="300" dy="0">per 100K: </tspan><tspan id="per100kPeoria" dx="15" dy="0">${(coords[i][4] / data[i][3]).toFixed(0)}</tspan>`;
+  bufrText += `<tspan dx="${coords[i][3]}" dy="750">Deaths: </tspan><tspan id="deathsPeoria" dx="15" dy="0">${data[i][4]}</tspan>`;
+  bufrText += `<tspan dx="300" dy="0">Fatality Rate: </tspan><tspan id="frPeoria" dx="15" dy="0">${(100*(data[i][4] / data[i][3])).toFixed(2)}</tspan>`;
+  bufrText += `</text><text x="${coords[i][0]}" y="${coords[i][1]}" style="font: 500px sans-serif; stroke-width: 5; stroke: #fff; fill: #fff;"><tspan dx="-500" dy="1.2em">${data[i][1]}</tspan></text>`;
+}
+
+elText.innerHTML = bufrText;
+
+</script>
+</body>
+</html>
